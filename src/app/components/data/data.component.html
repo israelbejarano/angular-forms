@@ -1,0 +1,97 @@
+<h4>Formularios <small>data</small></h4>
+<hr>
+<form [formGroup]="forma" (ngSubmit)="guardarCambios()">
+
+    <div formGroupName="nombreCompleto">
+
+        <div class="form-group row" [ngClass]="{'error': (!forma.controls['nombreCompleto'].controls['nombre'].valid && forma.controls['nombreCompleto'].controls['nombre'].touched)}">
+            <label class="col-2 col-form-label">Nombre</label>
+            <div class="col-8">
+                <input [class.is-invalid]="!forma.get('nombreCompleto.nombre').valid && forma.get('nombreCompleto.nombre').touched" formControlName="nombre" class="form-control" type="text" placeholder="Nombre">
+                <div *ngIf="forma.get('nombreCompleto.nombre').errors?.required" class="invalid-feedback ">
+                    Este campo es obligatorio
+                </div>
+                <div *ngIf="forma.get('nombreCompleto.nombre').errors?.minlength" class="invalid-feedback ">
+                    El nombre mímino tiene que ser {{ forma.get('nombreCompleto.nombre').errors?.minlength.requiredLength }} caracteres
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group row" [ngClass]="{'error': (!forma.controls['nombreCompleto'].controls['apellido'].valid && forma.controls['nombreCompleto'].controls['apellido'].touched)}">
+            <label class="col-2 col-form-label">Apellido</label>
+            <div class="col-8">
+
+                <input [class.is-invalid]="!forma.get('nombreCompleto.apellido').valid && forma.get('nombreCompleto.apellido').touched" formControlName="apellido" class="form-control" type="text" placeholder="Apellido">
+                <div class="invalid-feedback" *ngIf="forma.get('nombreCompleto.apellido').errors?.required">
+                    Este campo es obligatorio.
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form-group row" [ngClass]="{'error': (!forma.controls['correo'].valid && forma.controls['correo'].touched)}">
+        <label class="col-2 col-form-label">Correo</label>
+        <div class="col-md-8">
+
+            <input [class.is-invalid]="!forma.controls['correo'].valid && forma.controls['correo'].touched" formControlName="correo" class="form-control" type="email" placeholder="Correo electrónico">
+            <div class="invalid-feedback" *ngIf="forma.controls['correo'].errors?.required">
+                Este campo es obligatorio.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row" [ngClass]="{'error': (!forma.controls['username'].valid && forma.controls['username'].touched)}">
+        <label class="col-2 col-form-label">Nombre Usuario</label>
+        <div class="col-md-8">
+
+            <input [class.is-invalid]="!forma.controls['username'].valid && forma.controls['username'].touched" formControlName="username" class="form-control" type="text" placeholder="Nombre de usuario">
+            <div class="invalid-feedback" *ngIf="forma.controls['username'].errors?.required">
+                Este campo es obligatorio.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row" [ngClass]="{'error': (!forma.controls['password1'].valid && forma.controls['password1'].touched)}">
+        <label class="col-2 col-form-label">Password</label>
+        <div class="col-md-8">
+
+            <input [class.is-invalid]="!forma.controls['password1'].valid && forma.controls['password1'].touched" formControlName="password1" class="form-control" type="password" placeholder="Password">
+            <div class="invalid-feedback" *ngIf="forma.controls['password1'].errors?.required">
+                Este campo es obligatorio.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row" [ngClass]="{'error': (!forma.controls['password2'].valid && forma.controls['password2'].touched)}">
+        <label class="col-2 col-form-label">Repetir password</label>
+        <div class="col-md-8">
+
+            <input [class.is-invalid]="!forma.controls['password2'].valid && forma.controls['password2'].touched" formControlName="password2" class="form-control" type="password" placeholder="Repetir password">
+            <div class="invalid-feedback" *ngIf="forma.controls['password1'].errors?.required">
+                Este campo es obligatorio.
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">Pasatiempos</label>
+        <div class="col-md-8" formArrayName="pasatiempos">
+            <input *ngFor="let pasatiempo of forma.controls['pasatiempos'].controls; let i = index;" [formControlName]="i" type="text" class="form-control">
+        </div>
+    </div>
+
+    <button (click)="agregarPasatiempo()" type="button" class="btn btn-primary">Nuevo</button>
+
+    <div class="form-group row">
+        <label class="col-2 col-form-label">&nbsp;</label>
+        <div class="input-group col-md-8">
+            <button type="submit" class="btn btn-outline-primary">
+        Guardar
+      </button>
+        </div>
+    </div>
+    {{ forma.valid}}
+    <br> {{ forma.status }}
+
+</form>
