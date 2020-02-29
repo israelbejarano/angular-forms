@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { PaisService } from '../../services/pais.service';
 
 
 @Component({
@@ -34,9 +35,13 @@ export class TemplateComponent implements OnInit {
   ];
 
   sexos = ['hombre', 'mujer', 'sin definir'];
-  constructor() { }
+
+  constructor(private paisService: PaisService) { }
 
   ngOnInit() {
+    this.paisService.getPaises().subscribe((paises: any) => {
+      console.log(paises);
+    });
   }
 
   guardar(forma: NgForm) {
