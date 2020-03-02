@@ -20,7 +20,8 @@ export class TemplateComponent implements OnInit {
     email: null,
     pais: '',
     sexo: null,
-    acepta: false
+    acepta: false,
+    genero: ''
   };
 
   /* paises = [
